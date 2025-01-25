@@ -1,18 +1,20 @@
 from fastapi import FastAPI, HTTPException
 from app.catalog import Catalog
 from app.cart import Cart
-from app.models import ProductInput
+from app.models import ProductInput, CartItem, ListCartResponse, CartResponse
 from app.pricing_engine import PricingEngine
 
 def create_app() -> FastAPI:
-    """
-    Create and return a new FastAPI app with a fresh Cart.
-    """
     app = FastAPI()
     catalog = Catalog()
-    cart = Cart() 
+    cart = Cart()
 
-    @app.post("/cart/add")
+    @app.post(
+        "/cart/add",
+        response_model=CartResponse,
+        summary="Add a product to the cart",
+        description="Add a product to the cart by specifying the product code and quantity.",
+    )
     def add_to_cart(product: ProductInput):
         if not product.code or not product.code.strip():
             raise HTTPException(status_code=400, detail="Product code cannot be empty")
@@ -31,12 +33,16 @@ def create_app() -> FastAPI:
 
         return {"message": f"Added {product.quantity} of {product.code} to the cart"}
 
-    @app.get("/cart/list")
+    @app.get(
+        "/cart/list",
+        response_model=ListCartResponse,
+        summary="List all items in the cart with pricing details",
+        description=(
+            "Retrieve all products currently in the cart, along with their quantities, "
+            "original prices, and discounted prices (if applicable)."
+        ),
+    )
     def list_cart():
-        """
-        Get all the products in the cart, query the catalog for the latest prices,
-        and calculate the pricing details including original and discounted prices.
-        """
         cart_items = cart.list_items()
 
         product_data = {}
@@ -46,19 +52,24 @@ def create_app() -> FastAPI:
 
         result = PricingEngine.calculate_total(cart_items, product_data)
 
-        expected_cart = [
-            {
-                "code": entry["code"],
-                "quantity": entry["quantity"],
-                "original_price": entry["original_price"],
-                "discounted_price": entry["discounted_price"],
-            }
+        items = [
+            CartItem(
+                item=entry["code"],
+                quantity=entry["quantity"],
+                original_price=entry["original_price"],
+                discounted_price=entry["discounted_price"],
+            )
             for entry in result["breakdown"]
         ]
 
-        return expected_cart
+        return {"items": items}
 
-    @app.post("/cart/clear")
+    @app.post(
+        "/cart/clear",
+        response_model=CartResponse,
+        summary="Clear the cart",
+        description="Remove all products from the cart.",
+    )
     def clear_cart():
         cart.clear()
         return {"message": "Cart cleared"}
