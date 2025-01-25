@@ -10,6 +10,11 @@ class TestCartEndpoints(unittest.TestCase):
         """
         self.app = create_app()
         self.client = TestClient(self.app)
+        self.product_data = {
+            "GR1": 3.11,  # Green Tea
+            "SR1": 5.00,  # Strawberries
+            "CF1": 11.23  # Coffee
+        }
 
     def test_add_valid_product(self):
         """
@@ -70,11 +75,16 @@ class TestCartEndpoints(unittest.TestCase):
         Test listing products in the cart when there's only one product.
         Expected: 200 OK and a single-item array.
         """
-        self.client.post("/cart/add", json={"item": "GR1", "quantity": 1})
+        self.client.post("/cart/add", json={"item": "GR1",
+                                            "quantity": 1})
+        
         response = self.client.get("/cart/list")
         self.assertEqual(response.status_code, 200)
         expected_cart = [
-            {"item": "GR1", "quantity": 1},
+            {"item": "GR1",
+            "quantity": 1,
+            "original_price": self.product_data["GR1"],
+            "discounted_price": self.product_data["GR1"]},
         ]
         self.assertEqual(response.json(), expected_cart)
 
@@ -83,13 +93,19 @@ class TestCartEndpoints(unittest.TestCase):
         Test listing products in the cart when multiple products have been added.
         Expected: 200 OK and an array with all items.
         """
-        self.client.post("/cart/add", json={"item": "GR1", "quantity": 2})
-        self.client.post("/cart/add", json={"item": "CF1", "quantity": 3})
+        self.client.post("/cart/add", json={"item": "GR1", "quantity": 1})
+        self.client.post("/cart/add", json={"item": "CF1", "quantity": 1})
         response = self.client.get("/cart/list")
         self.assertEqual(response.status_code, 200)
         expected_cart = [
-            {"item": "GR1", "quantity": 2},
-            {"item": "CF1", "quantity": 3},
+            {"item": "GR1",
+             "quantity": 1, 
+             "original_price": self.product_data["GR1"],
+             "discounted_price": self.product_data["GR1"]},
+            {"item": "CF1", 
+             "quantity": 1,
+             "original_price": self.product_data["CF1"],
+             "discounted_price": self.product_data["CF1"]},
         ]
         self.assertEqual(response.json(), expected_cart)
 
