@@ -7,8 +7,8 @@ on:
       - develop
   pull_request:
     branches:
-      - main
-      - develop
+      - '**'
+
 
 jobs:
   test:
@@ -27,7 +27,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+        
     - name: Run Tests
       run: pytest --cov=app app/tests/ --cov-report=xml
 

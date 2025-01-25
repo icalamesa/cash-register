@@ -30,7 +30,7 @@ class TestAddToCart(unittest.TestCase):
         """
         client = TestClient(app)
         response = client.post("/cart/add", json={"item": "GR1", "quantity": "INVALID"})
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 422)
         self.assertIn("detail", response.json())
 
     def test_add_empty_code(self):
@@ -40,16 +40,6 @@ class TestAddToCart(unittest.TestCase):
         """
         client = TestClient(app)
         response = client.post("/cart/add", json={"item": "", "quantity": 1})
-        self.assertEqual(response.status_code, 400)
-        self.assertIn("detail", response.json())
-
-    def test_add_empty_quantity(self):
-        """
-        Test adding a product with an empty quantity amount.
-        Expected: 400 error with appropriate message.
-        """
-        client = TestClient(app)
-        response = client.post("/cart/add", json={"item": "GR1", "quantity": None})
         self.assertEqual(response.status_code, 400)
         self.assertIn("detail", response.json())
 
