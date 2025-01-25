@@ -21,7 +21,7 @@ class TestCartEndpoints(unittest.TestCase):
         Test adding a valid product to the cart via the endpoint.
         Expected: 200 OK and a confirmation message.
         """
-        response = self.client.post("/cart/add", json={"item": "GR1", "quantity": 1})
+        response = self.client.post("/cart/add", json={"code": "GR1", "quantity": 1})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"message": "Added 1 of GR1 to the cart"})
 
@@ -30,7 +30,7 @@ class TestCartEndpoints(unittest.TestCase):
         Test adding an invalid product to the cart.
         Expected: 400 error with 'detail' key in the JSON response.
         """
-        response = self.client.post("/cart/add", json={"item": "INVALID", "quantity": 1})
+        response = self.client.post("/cart/add", json={"code": "INVALID", "quantity": 1})
         self.assertEqual(response.status_code, 400)
         self.assertIn("detail", response.json())
 
@@ -39,7 +39,7 @@ class TestCartEndpoints(unittest.TestCase):
         Test adding a product with a non-integer quantity (string).
         Expected: 422 error due to Pydantic validation (if using a Pydantic model).
         """
-        response = self.client.post("/cart/add", json={"item": "GR1", "quantity": "INVALID"})
+        response = self.client.post("/cart/add", json={"code": "GR1", "quantity": "INVALID"})
         self.assertEqual(response.status_code, 422)
         self.assertIn("detail", response.json())
 
@@ -48,7 +48,7 @@ class TestCartEndpoints(unittest.TestCase):
         Test adding a product with an empty code.
         Expected: 400 error with 'detail' key in the JSON response.
         """
-        response = self.client.post("/cart/add", json={"item": "", "quantity": 1})
+        response = self.client.post("/cart/add", json={"code": "", "quantity": 1})
         self.assertEqual(response.status_code, 400)
         self.assertIn("detail", response.json())
 
@@ -57,7 +57,7 @@ class TestCartEndpoints(unittest.TestCase):
         Test adding a product with a negative quantity.
         Expected: 400 error with 'detail' key in the JSON response.
         """
-        response = self.client.post("/cart/add", json={"item": "GR1", "quantity": -1})
+        response = self.client.post("/cart/add", json={"code": "GR1", "quantity": -1})
         self.assertEqual(response.status_code, 400)
         self.assertIn("detail", response.json())
 
@@ -73,15 +73,15 @@ class TestCartEndpoints(unittest.TestCase):
     def test_list_cart_single_product(self):
         """
         Test listing products in the cart when there's only one product.
-        Expected: 200 OK and a single-item array.
+        Expected: 200 OK and a single-code array.
         """
-        self.client.post("/cart/add", json={"item": "GR1",
+        self.client.post("/cart/add", json={"code": "GR1",
                                             "quantity": 1})
         
         response = self.client.get("/cart/list")
         self.assertEqual(response.status_code, 200)
         expected_cart = [
-            {"item": "GR1",
+            {"code": "GR1",
             "quantity": 1,
             "original_price": self.product_data["GR1"],
             "discounted_price": self.product_data["GR1"]},
@@ -91,18 +91,18 @@ class TestCartEndpoints(unittest.TestCase):
     def test_list_cart_multiple_products(self):
         """
         Test listing products in the cart when multiple products have been added.
-        Expected: 200 OK and an array with all items.
+        Expected: 200 OK and an array with all codes.
         """
-        self.client.post("/cart/add", json={"item": "GR1", "quantity": 1})
-        self.client.post("/cart/add", json={"item": "CF1", "quantity": 1})
+        self.client.post("/cart/add", json={"code": "GR1", "quantity": 1})
+        self.client.post("/cart/add", json={"code": "CF1", "quantity": 1})
         response = self.client.get("/cart/list")
         self.assertEqual(response.status_code, 200)
         expected_cart = [
-            {"item": "GR1",
+            {"code": "GR1",
              "quantity": 1, 
              "original_price": self.product_data["GR1"],
              "discounted_price": self.product_data["GR1"]},
-            {"item": "CF1", 
+            {"code": "CF1", 
              "quantity": 1,
              "original_price": self.product_data["CF1"],
              "discounted_price": self.product_data["CF1"]},
@@ -114,8 +114,8 @@ class TestCartEndpoints(unittest.TestCase):
         Test clearing the cart via the endpoint.
         Expected: 200 OK and an empty cart afterward.
         """
-        self.client.post("/cart/add", json={"item": "GR1", "quantity": 2})
-        self.client.post("/cart/add", json={"item": "SR1", "quantity": 3})
+        self.client.post("/cart/add", json={"code": "GR1", "quantity": 2})
+        self.client.post("/cart/add", json={"code": "SR1", "quantity": 3})
 
         response_clear = self.client.post("/cart/clear")
         self.assertEqual(response_clear.status_code, 200)
