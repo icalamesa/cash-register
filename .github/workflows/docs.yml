@@ -3,7 +3,7 @@ name: Generate and Deploy Swagger UI
 on:
   push:
     branches:
-      - main 
+      - master 
 
 jobs:
   build:
