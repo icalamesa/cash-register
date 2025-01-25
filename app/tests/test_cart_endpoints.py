@@ -1,7 +1,7 @@
 # app/tests/test_cart_endpoints.py
 import unittest
 from fastapi.testclient import TestClient
-from app.main import app
+from app.main import create_app
 
 class TestCartEndpoints(unittest.TestCase):
     def setUp(self):
@@ -9,7 +9,8 @@ class TestCartEndpoints(unittest.TestCase):
         Re-initialize the FastAPI test client before each test.
         This ensures we start with a fresh state if your app or cart resets on startup.
         """
-        self.client = TestClient(app)
+        self.app = create_app()
+        self.client = TestClient(self.app)
 
     def test_add_valid_product(self):
         """
@@ -98,16 +99,13 @@ class TestCartEndpoints(unittest.TestCase):
         Test clearing the cart via the endpoint.
         Expected: 200 OK and an empty cart afterward.
         """
-        # Add a couple of items first
         self.client.post("/cart/add", json={"item": "GR1", "quantity": 2})
         self.client.post("/cart/add", json={"item": "SR1", "quantity": 3})
 
-        # Clear the cart
         response_clear = self.client.post("/cart/clear")
         self.assertEqual(response_clear.status_code, 200)
         self.assertIn("message", response_clear.json())
 
-        # Verify the cart is now empty
         response_list = self.client.get("/cart/list")
         self.assertEqual(response_list.status_code, 200)
         self.assertEqual(response_list.json(), [])

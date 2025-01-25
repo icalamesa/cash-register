@@ -5,7 +5,6 @@ class Cart:
     """
 
     def __init__(self):
-        # Dictionary of product_code -> quantity
         self._items = {}
 
     def add_product(self, code: str, quantity: int):
@@ -13,17 +12,28 @@ class Cart:
         Add a product with the given code and quantity to the cart.
         Raises ValueError if the code is invalid or the quantity is non-positive.
         """
-        None
+        if not code.strip():
+            raise ValueError("Product code cannot be empty")
+        if code.isnumeric() or len(code) != 3:
+            raise ValueError("Invalid product code")
+
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+
+        current_qty = self._items.get(code, 0)
+        self._items[code] = current_qty + quantity
 
     def list_items(self):
         """
-        Return a list of items in the cart. 
+        Return a list of items in the cart.
         Format: [ {"item": code, "quantity": quantity}, ... ]
         """
-        None
+        return [
+            {"item": code, "quantity": qty} for code, qty in self._items.items()
+        ]
 
     def clear(self):
         """
         Empty the cart.
         """
-        None
+        self._items.clear()

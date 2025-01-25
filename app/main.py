@@ -1,31 +1,46 @@
+# app/main.py
 from fastapi import FastAPI, HTTPException
-from app.models import ProductInput
 from app.catalog import Catalog
 from app.cart import Cart
+from app.models import ProductInput
 
-app = FastAPI()
-catalog = Catalog()
-
-@app.post("/cart/add")
-def add_to_cart(product: ProductInput):
+def create_app() -> FastAPI:
     """
-    Add a product to the cart.
-    Input: { "item": "GR1", "quantity": 1 }
-    Output: { "message": "Added 1 of GR1 to the cart" }
+    Create and return a new FastAPI app with a fresh Cart.
     """
+    app = FastAPI()
+    catalog = Catalog()
+    cart = Cart()  # New cart each time create_app() is called
 
-    if not product.item.strip() or product.item==None:
-        raise HTTPException(status_code=400, detail="Product item cannot be empty")
-    if not product.quantity or product.quantity==None:
-        raise HTTPException(status_code=400, detail="Product quantity cannot be empty")
-    if product.quantity < 0:
-        raise HTTPException(status_code=400, detail="Product quantity cannot be negative")
-    if not catalog.get_product(product.item):
-        raise HTTPException(status_code=400, detail="Product not found")
+    @app.post("/cart/add")
+    def add_to_cart(product: ProductInput):
+        # Validate
+        if not product.item or not product.item.strip():
+            raise HTTPException(status_code=400, detail="Product item cannot be empty")
+        if product.quantity is None:
+            raise HTTPException(status_code=400, detail="Product quantity cannot be empty")
+        if product.quantity < 0:
+            raise HTTPException(status_code=400, detail="Product quantity cannot be negative")
 
-    return {"message": f"Added {product.quantity} of {product.item} to the cart"}
+        # Check if the product is known by the catalog
+        if not catalog.get_product(product.item):
+            raise HTTPException(status_code=400, detail="Product not found")
 
-@app.get("/cart/list")
-def list_cart():
-    None
+        # Use the Cart class to add the item
+        try:
+            cart.add_product(product.item, product.quantity)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
+        return {"message": f"Added {product.quantity} of {product.item} to the cart"}
+
+    @app.get("/cart/list")
+    def list_cart():
+        return cart.list_items()
+
+    @app.post("/cart/clear")
+    def clear_cart():
+        cart.clear()
+        return {"message": "Cart cleared"}
+
+    return app
