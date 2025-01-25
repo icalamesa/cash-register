@@ -12,6 +12,23 @@ class TestPricingEngine(unittest.TestCase):
             "CF1": 11.23  # Coffee
         }
 
+    def agreggated_match_total(self):
+        """
+        Test if the sum of the output aggregated items matches the total
+        """
+        items = [
+            {"item": "CF1", "quantity": 3},
+            {"item": "GR1", "quantity": 1},
+            {"item": "SR1", "quantity": 1}
+        ]
+        aggregated = []
+        for entry in items:
+            code = entry["item"]
+            qty = entry["quantity"]
+            aggregated[code] = aggregated.get(code, 0) + qty
+        total = PricingEngine.calculate_total(items, self.product_data)['final_total']
+        self.assertEqual(total, sum(aggregated))
+
     def test_case_1(self):
         """
         Basket: GR1, GR1
