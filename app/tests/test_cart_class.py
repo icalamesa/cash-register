@@ -16,7 +16,7 @@ class TestCartClass(unittest.TestCase):
         self.cart.add_product("GR1", 2)
         items = self.cart.list_items()
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0]["item"], "GR1")
+        self.assertEqual(items[0]["code"], "GR1")
         self.assertEqual(items[0]["quantity"], 2)
 
     def test_add_multiple_different_products(self):
@@ -25,10 +25,10 @@ class TestCartClass(unittest.TestCase):
         """
         self.cart.add_product("GR1", 1)
         self.cart.add_product("SR1", 3)
-        items = sorted(self.cart.list_items(), key=lambda x: x["item"])
+        items = sorted(self.cart.list_items(), key=lambda x: x["code"])
         self.assertEqual(len(items), 2)
-        self.assertEqual(items[0], {"item": "GR1", "quantity": 1})
-        self.assertEqual(items[1], {"item": "SR1", "quantity": 3})
+        self.assertEqual(items[0], {"code": "GR1", "quantity": 1})
+        self.assertEqual(items[1], {"code": "SR1", "quantity": 3})
 
     def test_add_same_product_multiple_times(self):
         """
@@ -38,7 +38,7 @@ class TestCartClass(unittest.TestCase):
         self.cart.add_product("CF1", 2)
         items = self.cart.list_items()
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0], {"item": "CF1", "quantity": 3})
+        self.assertEqual(items[0], {"code": "CF1", "quantity": 3})
 
     def test_add_invalid_format_product_code(self):
         """

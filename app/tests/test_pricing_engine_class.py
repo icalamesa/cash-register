@@ -23,9 +23,9 @@ class TestPricingEngine(unittest.TestCase):
           SR1 -> 1 (No bulk discount triggered)
         """
         items = [
-            {"item": "CF1", "quantity": 3},
-            {"item": "GR1", "quantity": 1},
-            {"item": "SR1", "quantity": 1}
+            {"code": "CF1", "quantity": 3},
+            {"code": "GR1", "quantity": 1},
+            {"code": "SR1", "quantity": 1}
         ]
         result = PricingEngine.calculate_total(items, self.product_data)
 
@@ -46,9 +46,9 @@ class TestPricingEngine(unittest.TestCase):
           None of these quantities meet the discount thresholds.
         """
         items = [
-            {"item": "GR1", "quantity": 1},
-            {"item": "SR1", "quantity": 2},
-            {"item": "CF1", "quantity": 2}
+            {"code": "GR1", "quantity": 1},
+            {"code": "SR1", "quantity": 2},
+            {"code": "CF1", "quantity": 2}
         ]
         result = PricingEngine.calculate_total(items, self.product_data)
 
@@ -68,8 +68,8 @@ class TestPricingEngine(unittest.TestCase):
           - SR1 -> 1 (No discount)
         """
         items = [
-            {"item": "GR1", "quantity": 2},
-            {"item": "SR1", "quantity": 1}
+            {"code": "GR1", "quantity": 2},
+            {"code": "SR1", "quantity": 1}
         ]
         result = PricingEngine.calculate_total(items, self.product_data)
 
@@ -92,7 +92,7 @@ class TestPricingEngine(unittest.TestCase):
         Basket:
           GR1 -> 2 (Buy 1 Get 1 Free)
         """
-        items = [{"item": "GR1", "quantity": 2}]
+        items = [{"code": "GR1", "quantity": 2}]
         result = PricingEngine.calculate_total(items, self.product_data)
         self.assertAlmostEqual(result["final_total"], 3.11, places=2)
 
@@ -104,8 +104,8 @@ class TestPricingEngine(unittest.TestCase):
           GR1 -> 1
         """
         items = [
-            {"item": "SR1", "quantity": 3},
-            {"item": "GR1", "quantity": 1}
+            {"code": "SR1", "quantity": 3},
+            {"code": "GR1", "quantity": 1}
         ]
         result = PricingEngine.calculate_total(items, self.product_data)
 
@@ -125,9 +125,9 @@ class TestPricingEngine(unittest.TestCase):
           CF1 -> 3
         """
         items = [
-            {"item": "GR1", "quantity": 1},
-            {"item": "SR1", "quantity": 1},
-            {"item": "CF1", "quantity": 3}
+            {"code": "GR1", "quantity": 1},
+            {"code": "SR1", "quantity": 1},
+            {"code": "CF1", "quantity": 3}
         ]
         result = PricingEngine.calculate_total(items, self.product_data)
 
