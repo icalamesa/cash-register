@@ -12,9 +12,9 @@ def add_to_cart(product: ProductInput):
     Input: { "item": "GR1", "quantity": 1 }
     Output: { "message": "Added 1 of GR1 to the cart" }
     """
-    if not product.item.strip():
+    if not product.item.strip() or product.item==None:
         raise HTTPException(status_code=400, detail="Product item cannot be empty")
-    if not product.quantity:
+    if not product.quantity or product.quantity==None:
         raise HTTPException(status_code=400, detail="Product quantity cannot be empty")
     if product.quantity < 0:
         raise HTTPException(status_code=400, detail="Product quantity cannot be negative")
