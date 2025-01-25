@@ -1,4 +1,2 @@
-pytest
-unittest
 fastapi
 httpx
