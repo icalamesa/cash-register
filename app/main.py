@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.models import ProductInput
 from app.catalog import Catalog
-
+from app.cart import Cart
 
 app = FastAPI()
 catalog = Catalog()
@@ -24,3 +24,8 @@ def add_to_cart(product: ProductInput):
         raise HTTPException(status_code=400, detail="Product not found")
 
     return {"message": f"Added {product.quantity} of {product.item} to the cart"}
+
+@app.get("/cart/list")
+def list_cart():
+    None
+
