@@ -1,4 +1,3 @@
-# app/main.py
 from fastapi import FastAPI, HTTPException
 from app.catalog import Catalog
 from app.cart import Cart
@@ -10,11 +9,10 @@ def create_app() -> FastAPI:
     """
     app = FastAPI()
     catalog = Catalog()
-    cart = Cart()  # New cart each time create_app() is called
+    cart = Cart() 
 
     @app.post("/cart/add")
     def add_to_cart(product: ProductInput):
-        # Validate
         if not product.item or not product.item.strip():
             raise HTTPException(status_code=400, detail="Product item cannot be empty")
         if product.quantity is None:
@@ -22,11 +20,9 @@ def create_app() -> FastAPI:
         if product.quantity < 0:
             raise HTTPException(status_code=400, detail="Product quantity cannot be negative")
 
-        # Check if the product is known by the catalog
         if not catalog.get_product(product.item):
             raise HTTPException(status_code=400, detail="Product not found")
 
-        # Use the Cart class to add the item
         try:
             cart.add_product(product.item, product.quantity)
         except ValueError as e:
