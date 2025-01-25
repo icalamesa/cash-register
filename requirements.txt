@@ -1,4 +1,12 @@
-pytest
-unittest
 fastapi
+uvicorn[standard]==0.23.0 
+pydantic
+pytest
+pytest-cov
+unittest-xml-reporting
 httpx
+
+black
+flake8
+isort
+mypy
