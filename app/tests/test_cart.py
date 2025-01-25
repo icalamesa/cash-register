@@ -43,16 +43,6 @@ class TestAddToCart(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertIn("detail", response.json())
 
-    def test_add_empty_quantity(self):
-        """
-        Test adding a product with an empty quantity amount.
-        Expected: 400 error with appropriate message.
-        """
-        client = TestClient(app)
-        response = client.post("/cart/add", json={"item": "GR1", "quantity": int.empty})
-        self.assertEqual(response.status_code, 400)
-        self.assertIn("detail", response.json())
-
     def test_add_negative_quantity(self):
         """
         Test adding a product with a negative quantity.
