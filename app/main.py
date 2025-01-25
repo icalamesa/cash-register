@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from app.catalog import Catalog
 from app.cart import Cart
 from app.models import ProductInput
+from app.pricing_engine import PricingEngine
 
 def create_app() -> FastAPI:
     """
