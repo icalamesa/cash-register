@@ -21,7 +21,7 @@ class TestPricingEngine(unittest.TestCase):
         items = [
             {"item": "GR1", "quantity": 2}
         ]
-        total = PricingEngine.calculate_total(items, self.product_data)
+        total = PricingEngine.calculate_total(items, self.product_data)['final_total']
         self.assertEqual(total, 3.11)
 
     def test_case_2(self):
@@ -34,7 +34,7 @@ class TestPricingEngine(unittest.TestCase):
             {"item": "SR1", "quantity": 3},
             {"item": "GR1", "quantity": 1}
         ]
-        total = PricingEngine.calculate_total(items, self.product_data)
+        total = PricingEngine.calculate_total(items, self.product_data)['final_total']
         self.assertEqual(total, 16.61)
 
     def test_case_3(self):
@@ -48,7 +48,7 @@ class TestPricingEngine(unittest.TestCase):
             {"item": "GR1", "quantity": 1},
             {"item": "SR1", "quantity": 1}
         ]
-        total = PricingEngine.calculate_total(items, self.product_data)
+        total = PricingEngine.calculate_total(items, self.product_data)['final_total']
         self.assertEqual(total, 30.57)
 
 if __name__ == "__main__":
