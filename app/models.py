@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 class ProductInput(BaseModel):
-    item: str
+    code: str
     quantity: int

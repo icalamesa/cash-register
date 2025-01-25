@@ -14,22 +14,22 @@ def create_app() -> FastAPI:
 
     @app.post("/cart/add")
     def add_to_cart(product: ProductInput):
-        if not product.item or not product.item.strip():
-            raise HTTPException(status_code=400, detail="Product item cannot be empty")
+        if not product.code or not product.code.strip():
+            raise HTTPException(status_code=400, detail="Product code cannot be empty")
         if product.quantity is None:
             raise HTTPException(status_code=400, detail="Product quantity cannot be empty")
         if product.quantity < 0:
             raise HTTPException(status_code=400, detail="Product quantity cannot be negative")
 
-        if not catalog.get_product(product.item):
+        if not catalog.get_product(product.code):
             raise HTTPException(status_code=400, detail="Product not found")
 
         try:
-            cart.add_product(product.item, product.quantity)
+            cart.add_product(product.code, product.quantity)
         except ValueError as e:
             raise HTTPException(status_code=400, detail=str(e))
 
-        return {"message": f"Added {product.quantity} of {product.item} to the cart"}
+        return {"message": f"Added {product.quantity} of {product.code} to the cart"}
 
     @app.get("/cart/list")
     def list_cart():
@@ -41,14 +41,14 @@ def create_app() -> FastAPI:
 
         product_data = {}
         for item in cart_items:
-            product = catalog.get_product(item["item"])
-            product_data[item["item"]] = product["price"]
+            product = catalog.get_product(item["code"])
+            product_data[item["code"]] = product["price"]
 
         result = PricingEngine.calculate_total(cart_items, product_data)
 
         expected_cart = [
             {
-                "item": entry["code"],
+                "code": entry["code"],
                 "quantity": entry["quantity"],
                 "original_price": entry["original_price"],
                 "discounted_price": entry["discounted_price"],

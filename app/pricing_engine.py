@@ -18,7 +18,7 @@ class PricingEngine:
         # Aggregate items. In most situations, we'll have a single entry per product.
         aggregated = {}
         for entry in items:
-            code = entry["item"]
+            code = entry["code"]
             qty = entry["quantity"]
             aggregated[code] = aggregated.get(code, 0) + qty
 

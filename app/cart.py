@@ -29,7 +29,7 @@ class Cart:
         Format: [ {"item": code, "quantity": quantity}, ... ]
         """
         return [
-            {"item": code, "quantity": qty} for code, qty in self._items.items()
+            {"code": code, "quantity": qty} for code, qty in self._items.items()
         ]
 
     def clear(self):
