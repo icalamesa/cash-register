@@ -15,6 +15,5 @@ class Catalog:
         :param code: Product code to look up.
         :return: Product details dictionary or None if not found.
         """
-        return None 
-        #self.products.get(code)
+        return self.products.get(code)
 
