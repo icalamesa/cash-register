@@ -16,4 +16,6 @@ class Catalog:
         :return: Product details dictionary or None if not found.
         """
         return self.products.get(code)
-
+    
+    def get_all_products(self):
+        return self.products
