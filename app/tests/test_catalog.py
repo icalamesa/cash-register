@@ -30,10 +30,8 @@ class TestCatalog(unittest.TestCase):
         """
         all_products = self.catalog.get_all_products()
 
-        # Verify the returned catalog is a dictionary
         self.assertIsInstance(all_products, dict)
 
-        # Check the expected keys and values
         expected_catalog = {
             "GR1": {"name": "Green Tea", "price": 3.11},
             "SR1": {"name": "Strawberries", "price": 5.00},
@@ -41,7 +39,6 @@ class TestCatalog(unittest.TestCase):
         }
         self.assertEqual(all_products, expected_catalog)
 
-        # Check individual entries
         self.assertIn("GR1", all_products)
         self.assertEqual(all_products["GR1"]["price"], 3.11)
 

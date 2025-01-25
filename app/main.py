@@ -33,7 +33,30 @@ def create_app() -> FastAPI:
 
     @app.get("/cart/list")
     def list_cart():
-        return cart.list_items()
+        """
+        Get all the products in the cart, query the catalog for the latest prices,
+        and calculate the pricing details including original and discounted prices.
+        """
+        cart_items = cart.list_items()
+
+        product_data = {}
+        for item in cart_items:
+            product = catalog.get_product(item["item"])
+            product_data[item["item"]] = product["price"]
+
+        result = PricingEngine.calculate_total(cart_items, product_data)
+
+        expected_cart = [
+            {
+                "item": entry["code"],
+                "quantity": entry["quantity"],
+                "original_price": entry["original_price"],
+                "discounted_price": entry["discounted_price"],
+            }
+            for entry in result["breakdown"]
+        ]
+
+        return expected_cart
 
     @app.post("/cart/clear")
     def clear_cart():
