@@ -8,10 +8,11 @@ class PricingEngine:
         Phase 2: Apply cross-product (combo) rules if needed.
 
         :param items: A list of {"item": <product_code>, "quantity": <int>} dicts.
-                      e.g. [ {"item": "GR1", "quantity": 2}, {"item": "CF1", "quantity": 1} ]
+                  e.g. [ {"item": "GR1", "quantity": 2}, {"item": "CF1", "quantity": 1} ]
         :param product_data: A dict mapping product_code -> base_price (float).
-                      e.g. { "GR1": 3.11, "SR1": 5.00, "CF1": 11.23 }
-        :return: A float representing the total price after applying all discounts.
+                  e.g. { "GR1": 3.11, "SR1": 5.00, "CF1": 11.23 }
+        :return: A dict containing the original total, final total after discounts, 
+             and a breakdown of prices per product.
         """
 
         # Aggregate items. In most situations, we'll have a single entry per product.
