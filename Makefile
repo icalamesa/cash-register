@@ -1,6 +1,6 @@
 BACKEND_DIR = .
 FRONTEND_DIR = app/frontend
-TYPES_FILE = $(FRONTEND_DIR)/src/api/types.ts
+TYPES_FILE = $(FRONTEND_DIR)/src/types/types.ts
 OPENAPI_SCHEMA = openapi.json
 
 .PHONY: help backend frontend types install run clean
