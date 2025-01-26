@@ -7,7 +7,7 @@ import CartClear from "../components/ClearCartButton";
 const CartPage: React.FC = () => {
     return (
       <div className="container">
-        {/* Left Column: Catalog and Add to Cart */}
+        {/* Left Column */}
         <div className="column">
           <div className="card">
             <h2>Catalog</h2>
@@ -19,7 +19,7 @@ const CartPage: React.FC = () => {
           </div>
         </div>
   
-        {/* Right Column: Cart */}
+        {/* Right Column */}
         <div className="column">
           <div className="card">
             <h2>Your Cart</h2>

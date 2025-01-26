@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { addToCart } from "../api/cart";
+import { getCatalog } from "../api/catalog";
 
 const AddToCart: React.FC = () => {
+  const [catalog, setCatalog] = useState<{ code: string; name: string }[]>([]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
   const { notifyCartChange } = useCart();
+
+  useEffect(() => {
+    const fetchCatalog = async () => {
+      try {
+        const data = await getCatalog();
+        setCatalog(data.items); // Assume the catalog API response has an 'items' array
+      } catch (error) {
+        console.error("Failed to fetch catalog", error);
+        alert("Failed to load catalog. Please try again later.");
+      }
+    };
+
+    fetchCatalog();
+  }, []);
 
   const handleAddToCart = async () => {
     if (!selectedProduct || quantity < 1) {
@@ -17,33 +33,34 @@ const AddToCart: React.FC = () => {
     try {
       await addToCart({ code, quantity });
       notifyCartChange(); // Notify cart change
-      alert("Product added to cart!");
     } catch (error) {
       console.error("Failed to add product to cart", error);
-      alert("Failed to add product. Please try again.");
     }
   };
 
   return (
     <div className="card">
-      <label>Select a product:</label>
+      <label className="block mb-1">Select a product:</label>
       <select
         value={selectedProduct}
         onChange={(e) => setSelectedProduct(e.target.value)}
         className="select"
       >
         <option value="">Select a product</option>
-        <option value="GR1">Green Tea</option>
-        <option value="SR1">Strawberries</option>
-        <option value="CF1">Coffee</option>
+        {catalog.map((product) => (
+          <option key={product.code} value={`${product.code}-${product.name}`}>
+            {product.code} - {product.name}
+          </option>
+        ))}
       </select>
 
-      <label>Quantity:</label>
+      <label className="block mb-1">Quantity:</label>
       <input
         type="number"
         value={quantity}
         onChange={(e) => setQuantity(Number(e.target.value))}
         className="input"
+        min={1}
       />
 
       <button onClick={handleAddToCart} className="button">
