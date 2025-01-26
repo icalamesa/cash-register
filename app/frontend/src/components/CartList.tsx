@@ -10,18 +10,27 @@ const CartDisplay: React.FC = () => {
 
   return (
     <div className="card">
-      <h3>Your Cart</h3>
       {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p className="empty-cart-message">Your cart is empty.</p>
       ) : (
-        <ul>
+        <ul className="cart-list">
           {cart.map((item) => (
-            <li key={item.item}>
-              {item.quantity} × {item.item} @ {item.discounted_price.toFixed(2)} €
-              <span style={{ color: "gray", fontSize: "0.9rem" }}>
-                {" "}
-                (Original: {item.original_price.toFixed(2)} €)
-              </span>
+            <li key={item.item} className="cart-item">
+              <div className="cart-item-details">
+                <span className="cart-item-name">
+                  {item.quantity} × {item.item}
+                </span>
+                <span className="cart-item-price">
+                  {item.discounted_price.toFixed(2)} €
+                </span>
+              </div>
+              {item.original_price !== item.discounted_price && (
+                <div className="cart-item-original">
+                  <span className="original-price">
+                    Original: {item.original_price.toFixed(2)} €
+                  </span>
+                </div>
+              )}
             </li>
           ))}
         </ul>

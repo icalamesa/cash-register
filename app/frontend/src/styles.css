@@ -37,13 +37,92 @@ body {
   }
   
   /* Card Styling */
-  .card {
-    background-color: #fff5d1;
-    border: 1px solid #e2c9a0;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    .card {
+        background-color: #fff5d1;
+        border: 1px solid #e2c9a0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+  
+  /* Cart Heading */
+  .card h3 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #d49442;
+    margin-bottom: 15px;
   }
+  
+  /* Empty Cart Message */
+  .empty-cart-message {
+    font-size: 1rem;
+    color: #7a6248;
+    text-align: center;
+  }
+  
+  /* Cart List */
+  .cart-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Cart Item */
+  .cart-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #e2c9a0;
+  }
+  
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Cart Item Details */
+  .cart-item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cart-item-name {
+    font-weight: bold;
+    color: #5b4636;
+  }
+  
+  .cart-item-price {
+    font-weight: bold;
+    color: #d49442;
+  }
+  
+  /* Original Price */
+  .cart-item-original {
+    font-size: 0.9rem;
+    color: #7a6248;
+    text-align: right;
+  }
+  
+  /* Clear Cart Button */
+  .clear-cart-button {
+    background-color: #b35c3e; /* Muted red for danger */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+  }
+  
+  .clear-cart-button:hover {
+    background-color: #95482c; /* Darker muted red on hover */
+  }
+  
   
 /* Catalog Table */
 .table {
@@ -144,6 +223,49 @@ body {
     border-bottom: none;
   }
   
+  /* Offers Card Styling */
+.offers-card {
+    background-color: #fff5d1; /* Soft yellow */
+    border: 1px solid #e2c9a0; /* Subtle border */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+    margin-bottom: 20px;
+  }
+  
+  /* Offers Heading */
+  .offers-card h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d49442; /* Warm orange */
+    margin-bottom: 15px;
+  }
+  
+  /* Offers List */
+  .offers-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #5b4636; /* Warm brown */
+  }
+  
+  /* Offer Item */
+  .offer-item {
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+  
+  .offer-item strong {
+    color: #d49442; /* Highlighted text for offer title */
+  }
+  
+  .offer-item em {
+    font-style: italic;
+    color: #5b4636; /* Consistent product color */
+  }
+  
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .container {
