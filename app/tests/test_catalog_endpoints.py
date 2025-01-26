@@ -26,9 +26,9 @@ class TestCatalogEndpoints(unittest.TestCase):
         self.assertIsInstance(items, list)
 
         expected_items = [
-            {"item": "GR1", "name": "Green Tea", "original_price": 3.11},
-            {"item": "SR1", "name": "Strawberries", "original_price": 5.00},
-            {"item": "CF1", "name": "Coffee", "original_price": 11.23},
+            {"code": "GR1", "name": "Green Tea", "price": 3.11},
+            {"code": "SR1", "name": "Strawberries", "price": 5.00},
+            {"code": "CF1", "name": "Coffee", "price": 11.23},
         ]
         self.assertEqual(items, expected_items)
 

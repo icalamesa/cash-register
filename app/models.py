@@ -1,9 +1,15 @@
 from pydantic import BaseModel
 from typing import List
 
+
 class ProductInput(BaseModel):
     code: str
     quantity: int
+
+class CatalogItem(BaseModel):
+    code: str
+    name: str
+    price: float
 
 class CartItem(BaseModel):
     """
@@ -13,6 +19,12 @@ class CartItem(BaseModel):
     quantity: int
     original_price: float
     discounted_price: float
+
+class ListCatalogResponse(BaseModel):
+    """
+    Represents the response for the `/catalog/list` endpoint.
+    """
+    items: List[CatalogItem]
 
 class ListCartResponse(BaseModel):
     """
