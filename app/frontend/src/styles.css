@@ -1,275 +1,234 @@
 /* General Styles */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #faf3e0; /* Soft beige */
-    color: #5b4636; /* Warm brown */
+    background-color: #f4f4f4; /* Soft neutral gray */
+    color: #333333; /* Neutral dark gray */
     margin: 0;
     padding: 0;
     line-height: 1.6;
-  }
-  
-  /* Headings */
-  h2 {
+}
+
+/* Headings */
+h2, h3 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #d49442;
+    color: #2b2b2b; /* Darker gray for better contrast */
     margin-bottom: 1rem;
-  }
-  
-  /* Layout Container */
-  .container {
+}
+
+/* Layout Container */
+.container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     padding: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: #fff7e6;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Columns */
-  .column {
+    background-color: #ffffff; /* Clean white for contrast */
+    border-radius: 12px; /* Softer rounding */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+}
+
+/* Columns */
+.column {
     display: flex;
     flex-direction: column;
     gap: 25px;
-  }
-  
-  /* Card Styling */
-    .card {
-        background-color: #fff5d1;
-        border: 1px solid #e2c9a0;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    }
-  
-  /* Cart Heading */
-  .card h3 {
+}
+
+/* Card Styling */
+.card {
+    background-color: #f9f9f9; /* Light gray */
+    border: none; /* Remove borders */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-0.3px); /* Slight lift */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+/* Cart Heading */
+.card h3 {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #d49442;
+    color: #333333;
     margin-bottom: 15px;
-  }
-  
-  /* Empty Cart Message */
-  .empty-cart-message {
+}
+
+/* Empty Cart Message */
+.empty-cart-message {
     font-size: 1rem;
-    color: #7a6248;
+    color: #666666;
     text-align: center;
-  }
-  
-  /* Cart List */
-  .cart-list {
+}
+
+/* Cart List */
+.cart-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
-  }
-  
-  /* Cart Item */
-  .cart-item {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 10px;
-    border-bottom: 1px solid #e2c9a0;
-  }
-  
-  .cart-item:last-child {
-    border-bottom: none;
-  }
-  
-  /* Cart Item Details */
-  .cart-item-details {
+}
+
+.cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .cart-item-name {
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* Light shadow */
+}
+
+.cart-item-name {
     font-weight: bold;
-    color: #5b4636;
-  }
-  
-  .cart-item-price {
+    color: #2b2b2b;
+}
+
+.cart-item-price {
     font-weight: bold;
     color: #d49442;
-  }
-  
-  /* Original Price */
-  .cart-item-original {
-    font-size: 0.9rem;
-    color: #7a6248;
-    text-align: right;
-  }
-  
-  /* Clear Cart Button */
-  .clear-cart-button {
-    background-color: #b35c3e; /* Muted red for danger */
+}
+
+.cart-item-original {
+    font-size: 0.85rem;
+    color: #a6a6a6;
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+/* Clear Cart Button */
+.clear-cart-button {
+    background-color: #ff6f61; /* Modern muted red */
     color: #ffffff;
     border: none;
     padding: 10px 20px;
-    border-radius: 24px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
     margin-top: 15px;
-    text-align: center;
-    transition: background-color 0.2s ease;
-  }
-  
-  .clear-cart-button:hover {
-    background-color: #95482c; /* Darker muted red on hover */
-  }
-  
-  
+}
+
+.clear-cart-button:hover {
+    background-color: #ff5a4b;
+    transform: translateY(-2px);
+}
+
 /* Catalog Table */
 .table {
     width: 100%;
-    border-spacing: 0; /* Use border-spacing instead of border-collapse */
-    border: 1px solid #e2c9a0; /* Outer border for the table */
-    border-radius: 12px; /* Apply rounded corners */
-    overflow: hidden; /* Ensure rounded corners clip the content */
-    background-color: #fffdf2; /* Light table background */
-  }
-  
-  .table th,
-  .table td {
+    border-spacing: 0;
+    border: none; /* Remove borders */
+    border-radius: 8px; /* Rounded edges */
+    overflow: hidden; /* Ensure rounding clips content */
+    background-color: #ffffff; /* Clean white for tables */
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+}
+
+.table th,
+.table td {
     text-align: left;
     padding: 10px 15px;
-    border-bottom: 1px solid #e2c9a0; /* Inner borders between rows */
-  }
-  
-  .table th {
-    background-color: #ffe5b3; /* Warm background for table headers */
+}
+
+.table th {
+    background-color: #f3f3f3; /* Slightly darker for headers */
     font-weight: 600;
-    color: #5b4636;
-  }
-  
-  .table tr:last-child td {
-    border-bottom: none; /* Remove the border from the last row */
-  }
-  
-  /* Optional Hover Effect */
-  .table tr:hover {
-    background-color: #fff7e6; /* Slightly warmer row on hover */
-  }
-  
-  /* Rounded Corners for First and Last Row */
-  .table th:first-child,
-  .table td:first-child {
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-  }
-  
-  .table th:last-child,
-  .table td:last-child {
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
-  }
-  
-  /* Buttons */
-  .button {
-    background-color: #d49442;
+    color: #333333;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Subtle row alternation */
+}
+
+.table tr:hover {
+    background-color: #f0f0f0; /* Highlight row on hover */
+}
+
+/* Buttons */
+.button {
+    background-color: #6c8ae4; /* Cool blue */
     color: #ffffff;
     border: none;
     padding: 10px 20px;
-    border-radius: 24px;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
-    margin-top: 10px;
-    transition: background-color 0.2s ease;
-    text-align: center;
-  }
-  
-  .button:hover {
-    background-color: #b37935;
-  }
-  
-  /* Inputs */
-  .input,
-  .select {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background-color: #5a79d1;
+    transform: translateY(-2px);
+}
+
+/* Inputs */
+.input,
+.select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #e2c9a0;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     margin-bottom: 15px;
     font-size: 1rem;
-    background-color: #fff7e6;
-    color: #5b4636;
-  }
-  
-  .input:focus,
-  .select:focus {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.input:focus,
+.select:focus {
     outline: none;
-    border-color: #d49442;
-    box-shadow: 0 0 0 3px rgba(212, 148, 66, 0.3);
-  }
-  
-  /* Cart List */
-  .cart-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .cart-list li {
-    padding: 8px 0;
-    border-bottom: 1px solid #e2c9a0;
-  }
-  
-  .cart-list li:last-child {
-    border-bottom: none;
-  }
-  
-  /* Offers Card Styling */
+    border-color: #6c8ae4;
+    box-shadow: 0 0 0 3px rgba(108, 138, 228, 0.3);
+}
+
+/* Offers Card Styling */
 .offers-card {
-    background-color: #fff5d1; /* Soft yellow */
-    border: 1px solid #e2c9a0; /* Subtle border */
-    border-radius: 12px;
+    background-color: #f9f9f9; /* Light neutral */
+    border: none; /* Remove borders */
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
-    margin-bottom: 20px;
-  }
-  
-  /* Offers Heading */
-  .offers-card h2 {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+}
+
+/.offers-card h2 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #d49442; /* Warm orange */
-    margin-bottom: 15px;
-  }
-  
-  /* Offers List */
-  .offers-list {
+    color: #333333;
+}
+
+.offers-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
     font-size: 1rem;
-    color: #5b4636; /* Warm brown */
-  }
-  
-  /* Offer Item */
-  .offer-item {
+    color: #333333;
+}
+
+.offer-item {
     margin-bottom: 15px;
     line-height: 1.5;
-  }
-  
-  .offer-item strong {
-    color: #d49442; /* Highlighted text for offer title */
-  }
-  
-  .offer-item em {
-    font-style: italic;
-    color: #5b4636; /* Consistent product color */
-  }
-  
+}
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
+.offer-item strong {
+    color: #6c8ae4; /* Highlighted text */
+}
+
+.offer-item em {
+    font-style: italic;
+    color: #333333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     .container {
-      grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
-  }
-  
+}

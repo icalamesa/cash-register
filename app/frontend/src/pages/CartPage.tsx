@@ -11,7 +11,7 @@ const CartPage: React.FC = () => {
       {/* Left Column */}
       <div className="column">
         <div className="card">
-          <Offers /> {/* Include Offers component */}
+          <Offers />
         </div>
         <div className="card">
           <h2>Catalog</h2>
@@ -24,7 +24,7 @@ const CartPage: React.FC = () => {
         <div className="card">
           <h2>Your Cart</h2>
           <CartList />
-          <CartClear /> {/* Include Clear Cart Button */}
+          <CartClear />
         </div>
         <div className="card">
           <h2>Add to Cart</h2>
