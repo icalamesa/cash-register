@@ -15,6 +15,7 @@ const CartPage: React.FC = () => {
         </div>
         <div className="card">
           <h2>Catalog</h2>
+          <h3>All available products.</h3>
           <CatalogList />
         </div>
       </div>
@@ -22,12 +23,11 @@ const CartPage: React.FC = () => {
       {/* Right Column */}
       <div className="column">
         <div className="card">
-          <h2>Your Cart</h2>
-
+            <h2>Cart</h2>
           <AddToCart />
         </div>
         <div className="card">
-          <h2>Add to Cart</h2>
+          <h2>Cart</h2>
           <CartList />
         </div>
       </div>
