@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.catalog import Catalog
 from app.cart import Cart
-from app.models import ProductInput, CartItem, ListCartResponse, CartResponse
+from app.models import ProductInput, CartItem, ListCartResponse, CartResponse, CatalogItem, ListCatalogResponse
 from app.pricing_engine import PricingEngine
 
 def create_app() -> FastAPI:
@@ -82,5 +82,28 @@ def create_app() -> FastAPI:
     def clear_cart():
         cart.clear()
         return {"message": "Cart cleared"}
+
+
+    @app.get(
+        "/catalog/list",
+        response_model=ListCatalogResponse,
+        summary="List all items in the catalog with its name and original price",
+        description=(
+            "Retrieve all products existing in the catlog, along with their prices (without discounts)"
+        ),
+    )
+    def list_catalog():
+        catalog_items = catalog.get_all_products()
+
+        items = [
+            CatalogItem(
+                code=code,
+                name=contents["name"],
+                price=contents["price"]
+            )
+            for code, contents in catalog_items.items()
+        ]
+
+        return {"items": items}
 
     return app
