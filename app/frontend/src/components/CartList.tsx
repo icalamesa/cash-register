@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { listCart } from "../api/cart";
+import React, { useEffect } from "react";
+import { useCart } from "../context/CartContext";
 
-const CartList: React.FC = () => {
-  const [cartItems, setCartItems] = useState([]);
+const CartDisplay: React.FC = () => {
+  const { cart, fetchCart } = useCart();
 
   useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const response = await listCart();
-        setCartItems(response.items);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
-
-    fetchCart();
+    fetchCart(); // Fetch the cart on component mount
   }, []);
-
-  if (!cartItems.length) return <p>Your cart is empty.</p>;
 
   return (
     <div>
-      <h3>Cart Items</h3>
+      <h2>Your Cart</h2>
       <ul>
-        {cartItems.map((item, index) => (
-          <li key={index}>
-            {item.item} - Quantity: {item.quantity} - Original: ${item.original_price} - Discounted: ${item.discounted_price}
+        {cart.map((item) => (
+          <li key={item.code}>
+            {item.quantity} x {item.code} - ${item.discounted_price.toFixed(2)}
           </li>
         ))}
       </ul>
@@ -33,4 +22,4 @@ const CartList: React.FC = () => {
   );
 };
 
-export default CartList;
+export default CartDisplay;

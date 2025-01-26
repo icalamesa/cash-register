@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import { addToCart } from "../api/cart";
+import { useCart } from "../context/CartContext";
 
 const AddProduct: React.FC = () => {
+  const { addToCart } = useCart();
   const [code, setCode] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
-  const handleAdd = async () => {
-    try {
-      const response = await addToCart({ code, quantity });
-      alert(response.message);
-    } catch (error) {
-      alert("Failed to add product to cart.");
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await addToCart({ code, quantity });
+    setCode("");
+    setQuantity(1);
   };
 
   return (
-    <div>
-      <h3>Add Product</h3>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Product Code"
@@ -27,10 +25,10 @@ const AddProduct: React.FC = () => {
         type="number"
         placeholder="Quantity"
         value={quantity}
-        onChange={(e) => setQuantity(parseInt(e.target.value))}
+        onChange={(e) => setQuantity(parseInt(e.target.value, 10))}
       />
-      <button onClick={handleAdd}>Add to Cart</button>
-    </div>
+      <button type="submit">Add to Cart</button>
+    </form>
   );
 };
 
