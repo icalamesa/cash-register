@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { getCatalog } from "../api/catalog";
+import React, { useState } from "react";
+import { useCart } from "../context/CartContext";
 import { addToCart } from "../api/cart";
 
 const AddToCart: React.FC = () => {
-  const [catalog, setCatalog] = useState<{ code: string; name: string }[]>([]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    const fetchCatalog = async () => {
-      try {
-        const data = await getCatalog();
-        console.log("Catalog fetched:", data);
-        setCatalog(data.items || []);
-      } catch (error) {
-        console.error("Failed to fetch catalog:", error);
-      }
-    };
-
-    fetchCatalog();
-  }, []);
+  const { notifyCartChange } = useCart();
 
   const handleAddToCart = async () => {
     if (!selectedProduct || quantity < 1) {
@@ -29,38 +15,40 @@ const AddToCart: React.FC = () => {
 
     const [code] = selectedProduct.split("-");
     try {
-      console.log("Adding to cart:", { code, quantity });
-      await addToCart({code, quantity});
+      await addToCart({ code, quantity });
+      notifyCartChange(); // Notify cart change
       alert("Product added to cart!");
     } catch (error) {
-      console.error("Failed to add product to cart:", error);
+      console.error("Failed to add product to cart", error);
       alert("Failed to add product. Please try again.");
     }
   };
 
   return (
-    <div>
-      <h2>Add to Cart</h2>
+    <div className="card">
+      <label>Select a product:</label>
       <select
         value={selectedProduct}
         onChange={(e) => setSelectedProduct(e.target.value)}
-        disabled={catalog.length === 0}
+        className="select"
       >
         <option value="">Select a product</option>
-        {catalog.map((item) => (
-          <option key={item.code} value={`${item.code}-${item.name}`}>
-            {item.code} - {item.name}
-          </option>
-        ))}
+        <option value="GR1">Green Tea</option>
+        <option value="SR1">Strawberries</option>
+        <option value="CF1">Coffee</option>
       </select>
-      {catalog.length === 0 && <p>Loading catalog...</p>}
+
+      <label>Quantity:</label>
       <input
         type="number"
         value={quantity}
-        min={1}
         onChange={(e) => setQuantity(Number(e.target.value))}
+        className="input"
       />
-      <button onClick={handleAddToCart}>Add</button>
+
+      <button onClick={handleAddToCart} className="button">
+        Add
+      </button>
     </div>
   );
 };

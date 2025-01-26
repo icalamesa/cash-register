@@ -5,19 +5,27 @@ const CartDisplay: React.FC = () => {
   const { cart, fetchCart } = useCart();
 
   useEffect(() => {
-    fetchCart(); // Fetch the cart on component mount
-  }, []);
+    fetchCart();
+  }, [fetchCart]);
 
   return (
-    <div>
-      <h2>Your Cart</h2>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.code}>
-            {item.quantity} x {item.code} - ${item.discounted_price.toFixed(2)}
-          </li>
-        ))}
-      </ul>
+    <div className="card">
+      <h3>Your Cart</h3>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cart.map((item) => (
+            <li key={item.item}>
+              {item.quantity} × {item.item} @ {item.discounted_price.toFixed(2)} €
+              <span style={{ color: "gray", fontSize: "0.9rem" }}>
+                {" "}
+                (Original: {item.original_price.toFixed(2)} €)
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
