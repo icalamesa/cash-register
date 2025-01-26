@@ -9,7 +9,7 @@ const CartDisplay: React.FC = () => {
   }, [fetchCart]);
 
   return (
-    <div className="card">
+    <div className="card cart-container">
       {cart.length === 0 ? (
         <p className="empty-cart-message">Your cart is empty.</p>
       ) : (
@@ -20,17 +20,17 @@ const CartDisplay: React.FC = () => {
                 <span className="cart-item-name">
                   {item.quantity} × {item.item}
                 </span>
+              </div>
+              <div className="cart-item-price-container">
+                {item.original_price !== item.discounted_price && (
+                  <span className="cart-item-original">
+                    {item.original_price.toFixed(2)} €
+                  </span>
+                )}
                 <span className="cart-item-price">
                   {item.discounted_price.toFixed(2)} €
                 </span>
               </div>
-              {item.original_price !== item.discounted_price && (
-                <div className="cart-item-original">
-                  <span className="original-price">
-                    Original: {item.original_price.toFixed(2)} €
-                  </span>
-                </div>
-              )}
             </li>
           ))}
         </ul>

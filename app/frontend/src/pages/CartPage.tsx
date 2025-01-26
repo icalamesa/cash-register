@@ -23,12 +23,12 @@ const CartPage: React.FC = () => {
       <div className="column">
         <div className="card">
           <h2>Your Cart</h2>
-          <CartList />
-          <CartClear />
+
+          <AddToCart />
         </div>
         <div className="card">
           <h2>Add to Cart</h2>
-          <AddToCart />
+          <CartList />
         </div>
       </div>
     </div>

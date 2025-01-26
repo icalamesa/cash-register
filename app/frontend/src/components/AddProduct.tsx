@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { addToCart } from "../api/cart";
+import { addToCart, clearCart } from "../api/cart";
 import { getCatalog } from "../api/catalog";
 
 const AddToCart: React.FC = () => {
@@ -38,6 +38,17 @@ const AddToCart: React.FC = () => {
     }
   };
 
+  const handleClearCart = async () => {
+    try {
+      const response = await clearCart();
+      notifyCartChange();
+      alert(response.message);
+    } catch (error) {
+      console.error("Failed to clear the cart", error);
+      alert("Failed to clear cart. Please try again later.");
+    }
+  };
+
   return (
     <div className="card">
       <label className="block mb-1">Select a product:</label>
@@ -63,9 +74,15 @@ const AddToCart: React.FC = () => {
         min={1}
       />
 
-      <button onClick={handleAddToCart} className="button">
-        Add
-      </button>
+      {/* Flex container for buttons */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "15px" }}>
+        <button onClick={handleAddToCart} className="button">
+          Add
+        </button>
+        <button onClick={handleClearCart} className="clear-cart-button">
+          Clear Cart
+        </button>
+      </div>
     </div>
   );
 };
