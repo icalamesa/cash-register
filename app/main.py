@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from app.catalog import Catalog
 from app.cart import Cart
 from app.models import ProductInput, CartItem, ListCartResponse, CartResponse
@@ -8,6 +9,14 @@ def create_app() -> FastAPI:
     app = FastAPI()
     catalog = Catalog()
     cart = Cart()
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:5173"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     @app.post(
         "/cart/add",
