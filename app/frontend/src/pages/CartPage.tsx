@@ -1,11 +1,36 @@
 import React from "react";
+import CatalogList from "../components/CatalogList";
+import AddToCart from "../components/AddProduct";
 import CartList from "../components/CartList";
+import CartClear from "../components/ClearCartButton";
+import Offers from "../components/OfferPane";
 
 const CartPage: React.FC = () => {
   return (
-    <div>
-      <h1>Your Cart</h1>
-      <CartList />
+    <div className="container">
+      {/* Left Column */}
+      <div className="column">
+        <div className="card">
+          <Offers />
+        </div>
+        <div className="card">
+          <h2>Catalog</h2>
+          <h3>All available products.</h3>
+          <CatalogList />
+        </div>
+      </div>
+
+      {/* Right Column */}
+      <div className="column">
+        <div className="card">
+            <h2>Cart</h2>
+          <AddToCart />
+        </div>
+        <div className="card">
+          <h2>Cart</h2>
+          <CartList />
+        </div>
+      </div>
     </div>
   );
 };

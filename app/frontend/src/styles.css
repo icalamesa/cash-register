@@ -1,0 +1,259 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2b2b2b;
+    margin-bottom: 1rem;
+    margin-top: -0.2rem;
+}
+
+h3 {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #2b2b2b;
+    margin-bottom: 1.6rem;
+    margin-top: -0.2rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    align-items: stretch;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    
+}
+
+.card {
+    background-color: #f9f9f9;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    
+}
+
+.card:hover {
+    transform: translateY(-0.1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card.cart-container {
+    max-height: 350px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+.empty-cart-message {
+    font-size: 1rem;
+    color: #666666;
+    text-align: center;
+}
+
+.cart-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cart-item:last-child {
+    margin-bottom: 0;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    color: #2b2b2b;
+}
+
+.cart-item-price-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: baseline;
+    min-width: 150px;
+}
+
+.cart-item-original {
+    font-size: 0.85rem;
+    color: #a6a6a6;
+    text-decoration: line-through;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #d49442;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.clear-cart-button {
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.clear-cart-button:hover {
+    background-color: #ff5a4b;
+    transform: translateY(-1px);
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 10px 15px;
+}
+
+.table th {
+    background-color: #f3f3f3;
+    font-weight: 600;
+    color: #333333;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f0f0f0;
+}
+
+.button {
+    background-color: #6c8ae4;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.button:hover {
+    background-color: #5a79d1;
+    transform: translateY(-2px);
+}
+
+.input,
+.select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.input:focus,
+.select:focus {
+    outline: none;
+    border-color: #6c8ae4;
+    box-shadow: 0 0 0 3px rgba(108, 138, 228, 0.3);
+}
+
+.offers-card {
+    background-color: #f9f9f9;
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    max-height: 350px;
+}
+
+.offers-card h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333333;
+}
+
+.offers-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #333333;
+}
+
+.offer-item {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.offer-item strong {
+    color: #6c8ae4;
+}
+
+.offer-item em {
+    font-style: italic;
+    color: #333333;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
