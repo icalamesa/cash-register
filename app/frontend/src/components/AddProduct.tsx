@@ -46,14 +46,14 @@ const AddToCart: React.FC = () => {
         onChange={(e) => setSelectedProduct(e.target.value)}
         className="select"
       >
-        <option value="">Select a product</option>
+        <option value="">Select a product </option>
         {catalog.map((product) => (
           <option key={product.code} value={`${product.code}-${product.name}`}>
             {product.code} - {product.name}
           </option>
         ))}
       </select>
-
+      <br />
       <label className="block mb-1">Quantity:</label>
       <input
         type="number"
