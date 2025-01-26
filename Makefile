@@ -3,7 +3,7 @@ FRONTEND_DIR = app/frontend
 TYPES_FILE = $(FRONTEND_DIR)/src/types/types.ts
 OPENAPI_SCHEMA = openapi.json
 
-.PHONY: help backend frontend types install run clean
+.PHONY: help backend frontend types install run clean test
 
 help:
 	@echo "Available commands:"
@@ -12,6 +12,7 @@ help:
 	@echo "  make frontend    - Start the React frontend (with type updates)"
 	@echo "  make types       - Generate TypeScript types from OpenAPI schema"
 	@echo "  make run         - Run both backend and frontend concurrently"
+	@echo "  make test        - Run frontend tests with Vitest"
 	@echo "  make clean       - Clean up build artifacts"
 
 install:
@@ -37,6 +38,11 @@ types:
 frontend:
 	@echo "Starting the React frontend..."
 	cd $(FRONTEND_DIR) && npm run dev
+
+test:
+	@echo "Running frontend tests with Vitest..."
+	pytest $(BACKEND_DIR)/tests
+	cd $(FRONTEND_DIR) && npx vitest run --coverage
 
 run: types
 	@echo "Starting backend and frontend concurrently..."
