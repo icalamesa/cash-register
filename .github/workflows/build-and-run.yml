@@ -1,0 +1,54 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.12.3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install make
+        make install
+
+    - name: Test Backend
+      run: |
+        make backend
+
+    - name: Generate TypeScript types
+      run: |
+        make types
+
+    - name: Test Frontend
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Start Backend and Frontend
+      run: |
+        make run &
+        sleep 10 # Wait for backend to start
+        curl -f http://127.0.0.1:8000/docs # Check if backend is running
+        curl -f http://127.0.0.1:3000 # Check if frontend is running
+        pkill -f uvicorn # Stop backend after test
