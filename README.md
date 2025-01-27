@@ -39,8 +39,10 @@ The core functionality revolves around three special pricing rules:
 
 **Testing**:
 - **Backend**: Tests were written using Pytest, covering core business logic and API endpoints. These tests validate:
+  - Endpoints
   - Special pricing rules.
   - Cart management (e.g., adding and clearing items).
+  - Catalog content retrieval (e.g., for lists and selection slicers)
 - **Frontend**: Testing was not completed due to time constraints, but Vitest was intended as the testing suite.
 - **Automation**: GitHub Actions automatically execute backend tests upon code pushes and pull requests to ensure quality and reliability.
 
