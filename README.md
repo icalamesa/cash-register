@@ -63,7 +63,7 @@ The core functionality revolves around three special pricing rules:
 
 **Documentation**:
 - The project documentation is available online at [https://icalamesa.github.io/cash-register/](https://icalamesa.github.io/cash-register/).
-- Alternatively, it can be viewed locally by running the FastAPI server (`uvicorn app.main:create_app --reload --factory`) and navigating to [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+- Alternatively, the API Swagger Documentation can be viewed locally by running the FastAPI server (`uvicorn app.main:create_app --reload --factory`) and navigating to [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 ---
 
