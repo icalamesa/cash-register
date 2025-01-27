@@ -3,7 +3,6 @@ import React from "react";
 const Offers: React.FC = () => {
   return (
     <div className="offers-card">
-      <h2>Special Offers</h2>
       <ul className="offers-list">
         <li className="offer-item">
           <strong>Buy-One-Get-One-Free:</strong> On <em>Green Tea (GR1)</em>. Every second tea is free!

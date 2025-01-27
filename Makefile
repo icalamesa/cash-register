@@ -29,7 +29,7 @@ types:
 	@echo "Generating TypeScript types from OpenAPI schema..."
 	# Ensure backend is running to fetch the OpenAPI schema
 	cd $(BACKEND_DIR) && venv/bin/uvicorn app.main:create_app --port 8000 &
-	sleep 5  # Allow server to start
+	sleep 3  # Allow server to start
 	curl -s http://127.0.0.1:8000/openapi.json -o $(BACKEND_DIR)/$(OPENAPI_SCHEMA)
 	npx openapi-typescript $(BACKEND_DIR)/$(OPENAPI_SCHEMA) -o $(TYPES_FILE)
 	pkill uvicorn
