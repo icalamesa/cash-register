@@ -6,9 +6,9 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <h1 className="header-title">Shopping Cart App</h1>
-      <button className="cart-button">
+      {/*<button className="cart-button">
         <FaShoppingCart />
-      </button>
+      </button>*/}
     </header>
   );
 };
