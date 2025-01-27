@@ -13,6 +13,7 @@ const CartPage: React.FC = () => {
         {/* Left Column */}
         <div className="column">
           <div className="card">
+          <h2>Special Offers</h2>
             <Offers />
           </div>
           <div className="card">
